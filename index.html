@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unauthorized Weapon Detection - DL Project Dashboard</title>
+    <!-- Load Tailwind CSS from CDN for instant styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family and custom theme configuration -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>
+        // Custom Tailwind Configuration (defines color palette)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#1e293b', /* Slate 800 */
+                        'secondary-dark': '#334155', /* Slate 700 */
+                        'accent': '#3b82f6', /* Blue 500 */
+                        'text-light': '#f1f5f9', /* Slate 100 */
+                        'text-muted': '#94a3b8', /* Slate 400 */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-text-light min-h-screen flex">
+
+    <!-- 1. Sidebar Navigation (Responsive: Hidden on mobile, visible on desktop) -->
+    <aside class="w-64 bg-primary-dark p-6 flex flex-col hidden md:flex rounded-r-3xl shadow-2xl">
+        <h1 class="text-2xl font-bold text-accent mb-10 border-b border-secondary-dark pb-3">DL FYP Dash</h1>
+        <nav class="space-y-4">
+            <!-- Dashboard Link (Initial active state) -->
+            <a href="#" id="nav-dashboard" onclick="showContent('dashboard')" class="nav-link flex items-center space-x-3 p-3 rounded-xl text-white font-semibold shadow-lg bg-secondary-dark transition duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span>Dashboard</span>
+            </a>
+            <!-- Team & Feedback Link -->
+            <a href="#" id="nav-team" onclick="showContent('team')" class="nav-link flex items-center space-x-3 p-3 rounded-xl text-text-muted hover:bg-secondary-dark transition duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Team & Feedback</span>
+            </a>
+            <!-- Resources Link -->
+            <a href="#" id="nav-resources" onclick="showContent('resources')" class="nav-link flex items-center space-x-3 p-3 rounded-xl text-text-muted hover:bg-secondary-dark transition duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                <span>Resources</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- 2. Main Content Area -->
+    <main class="flex-1 p-4 md:p-10 overflow-y-auto">
+
+        <!-- 2.1 Header & Search -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 pb-4 border-b border-secondary-dark">
+            <h2 id="view-title" class="text-3xl font-extrabold text-white mb-4 md:mb-0">Learning Path Overview</h2>
+            <div class="flex items-center space-x-4 w-full md:w-auto">
+                <input type="text" placeholder="Search modules or resources..." class="bg-secondary-dark p-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-accent w-full md:w-64" aria-label="Search">
+                <!-- User Avatar (Placeholder) -->
+                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center font-bold text-lg cursor-pointer">JA</div>
+            </div>
+        </header>
+
+        <!-- --- CONTENT CONTAINERS --- -->
+
+        <!-- A. Dashboard Content (Default View) -->
+        <section id="dashboard-content">
+            <!-- System Status Card -->
+            <div class="bg-secondary-dark p-6 rounded-2xl shadow-xl mb-10">
+                <div class="flex justify-between items-center mb-3">
+                    <p class="text-lg font-semibold">Overall Project Progress (Unauthorized Weapon Detection)</p>
+                    <p class="text-xl font-bold text-accent">40% Complete</p>
+                </div>
+                <!-- Progress Bar -->
+                <div class="w-full bg-primary-dark rounded-full h-3">
+                    <div class="bg-accent h-3 rounded-full" style="width: 40%;"></div>
+                </div>
+                <p class="text-sm text-text-muted mt-2">Next Milestone: Module 3: Model Training Completion (Due 01/12)</p>
+            </div>
+
+            <!-- Learning Modules Grid -->
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Module Card 1 (Completed) -->
+                <div class="bg-primary-dark p-6 rounded-2xl shadow-lg border-b-4 border-green-500">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Module 1: Data Acquisition & Prep</h3>
+                        <span class="text-sm bg-green-500 text-white font-medium px-3 py-1 rounded-full">Completed</span>
+                    </div>
+                    <p class="text-text-muted mb-4 text-sm">Defined scope, identified target weapons, and collected initial dataset (700 images).</p>
+                    <div class="w-full bg-secondary-dark rounded-full h-2 mb-4"><div class="bg-green-500 h-2 rounded-full" style="width: 100%;"></div></div>
+                    <button onclick="showContent('documentation')" class="w-full bg-accent hover:bg-blue-600 transition py-2 rounded-xl text-white font-semibold text-sm">Review Documentation</button>
+                </div>
+
+                <!-- Module Card 2 (In Progress - Active) -->
+                <div class="bg-secondary-dark p-6 rounded-2xl shadow-2xl border-b-4 border-accent transform hover:scale-[1.02] transition-transform duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-accent">Module 2: Model Selection & Design</h3>
+                        <span class="text-sm bg-yellow-500 text-black font-medium px-3 py-1 rounded-full">In Progress</span>
+                    </div>
+                    <p class="text-text-light mb-4 text-sm">Reviewed state-of-the-art detection models (YOLO, Faster R-CNN) and finalized architecture.</p>
+                    <div class="w-full bg-primary-dark rounded-full h-2 mb-4"><div class="bg-yellow-500 h-2 rounded-full" style="width: 70%;"></div></div>
+                    <button onclick="showContent('reading')" class="w-full bg-accent hover:bg-blue-600 transition py-2 rounded-xl text-white font-semibold text-sm">Continue Reading</button>
+                </div>
+
+                <!-- Module Card 3 (Upcoming/Locked) -->
+                <div class="bg-primary-dark p-6 rounded-2xl shadow-lg border-b-4 border-gray-600 opacity-60">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-text-muted">Module 3: Model Training & Tuning</h3>
+                        <span class="text-sm bg-gray-600 text-white font-medium px-3 py-1 rounded-full">Locked</span>
+                    </div>
+                    <p class="text-text-muted mb-4 text-sm">Setup deep learning environment, execute training runs, and optimize hyperparameters (mAP).</p>
+                    <div class="w-full bg-secondary-dark rounded-full h-2 mb-4"><div class="bg-gray-600 h-2 rounded-full" style="width: 0%;"></div></div>
+                    <button disabled class="w-full bg-secondary-dark text-text-muted py-2 rounded-xl text-sm cursor-not-allowed opacity-50">Prerequisite Not Met</button>
+                </div>
+
+                <!-- Additional Modules... -->
+                <div class="bg-primary-dark p-6 rounded-2xl shadow-lg border-b-4 border-gray-600 opacity-60">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-text-muted">Module 4: Real-time Deployment</h3>
+                        <span class="text-sm bg-gray-600 text-white font-medium px-3 py-1 rounded-full">Locked</span>
+                    </div>
+                    <p class="text-text-muted mb-4 text-sm">Implement inference on edge device (Jetson Nano) and conduct latency/accuracy evaluation.</p>
+                    <div class="w-full bg-secondary-dark rounded-full h-2 mb-4"><div class="bg-gray-600 h-2 rounded-full" style="width: 0%;"></div></div>
+                    <button disabled class="w-full bg-secondary-dark text-text-muted py-2 rounded-xl text-sm cursor-not-allowed opacity-50">Prerequisite Not Met</button>
+                </div>
+            </section>
+        </section>
+
+        <!-- B. Team & Feedback Content (Hidden by default) -->
+        <section id="team-content" class="hidden">
+            <h3 class="text-2xl font-bold mb-6">Team Collaboration & Feedback</h3>
+            <div class="bg-secondary-dark p-8 rounded-2xl shadow-xl space-y-6">
+                <p class="text-text-muted">Manage communication, shared files, and supervisor feedback for the deep learning pipeline.</p>
+                
+                <!-- Feedback List -->
+                <div class="bg-primary-dark p-4 rounded-xl">
+                    <p class="font-semibold text-white mb-2">Pending Actions</p>
+                    <ul class="space-y-3">
+                        <li class="p-3 bg-secondary-dark rounded-lg flex justify-between items-center">
+                            <span><span class="font-semibold text-accent">Supervisor:</span> Review comments on **Data Labeling Quality** (check for box integrity)</span>
+                            <span class="text-sm bg-yellow-500 text-black font-medium px-3 py-1 rounded-full">Action Required</span>
+                        </li>
+                        <li class="p-3 bg-secondary-dark rounded-lg flex justify-between items-center">
+                            <span><span class="font-semibold text-accent">Team Member:</span> **Dataset Annotation Request:** Label 500 more images</span>
+                            <span class="text-sm bg-blue-500 text-white font-medium px-3 py-1 rounded-full">New</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Chat/Communication Mock -->
+                <div class="mt-6">
+                    <p class="font-semibold text-white mb-2">Recent Messages</p>
+                    <div class="p-4 h-48 bg-primary-dark rounded-xl overflow-y-auto space-y-2">
+                        <p class="text-sm text-text-light"><span class="font-semibold text-accent">Supervisor:</span> The initial mAP is promising. Check the model training logs for any sign of **vanishing gradient**.</p>
+                        <p class="text-sm text-text-muted text-right">Will implement gradient clipping and report back. <span class="font-semibold text-text-light">Me</span></p>
+                    </div>
+                    <input type="text" placeholder="Type a message..." class="bg-primary-dark p-3 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-accent w-full mt-2" aria-label="Send Message">
+                </div>
+            </div>
+        </section>
+
+        <!-- C. Resources Content (Hidden by default) -->
+        <section id="resources-content" class="hidden">
+            <h3 class="text-2xl font-bold mb-6">External Resources & Tools</h3>
+            <div class="bg-secondary-dark p-8 rounded-2xl shadow-xl space-y-6">
+                <p class="text-text-muted">Access links, guides, and tools critical for the deep learning development lifecycle.</p>
+
+                <!-- Resource List -->
+                <div class="space-y-4">
+                    <!-- Resource Card 1 -->
+                    <div class="bg-primary-dark p-4 rounded-2xl shadow-lg flex justify-between items-center transition hover:ring-2 ring-accent">
+                        <div>
+                            <p class="font-semibold text-accent">Deep Learning Environment Setup Guide (CUDA/Conda)</p>
+                            <p class="text-sm text-text-muted">Check out the configuration document for the standardized DL environment.</p>
+                        </div>
+                        <a href="#" class="text-sm bg-accent px-4 py-2 rounded-xl hover:bg-blue-600 transition">View Guide</a>
+                    </div>
+                    <!-- Resource Card 2 -->
+                    <div class="bg-primary-dark p-4 rounded-2xl shadow-lg flex justify-between items-center transition hover:ring-2 ring-accent">
+                        <div>
+                            <p class="font-semibold text-accent">Public Weapon Detection Datasets (e.g., COCO subsets)</p>
+                            <p class="text-sm text-text-muted">Links to public data sources for supplementary training/testing.</p>
+                        </div>
+                        <a href="#" class="text-sm bg-accent px-4 py-2 rounded-xl hover:bg-blue-600 transition">Go to Repo</a>
+                    </div>
+                     <!-- Resource Card 3 -->
+                    <div class="bg-primary-dark p-4 rounded-2xl shadow-lg flex justify-between items-center transition hover:ring-2 ring-accent">
+                        <div>
+                            <p class="font-semibold text-accent">GPU Cloud Instance Access and Status</p>
+                            <p class="text-sm text-text-muted">Check the health and monitor the utilization of the training VMs.</p>
+                        </div>
+                        <a href="#" class="text-sm bg-accent px-4 py-2 rounded-xl hover:bg-blue-600 transition">Check Status</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- D. Module 1: Documentation View (Specific Deep Learning Content) -->
+        <section id="documentation-content" class="hidden">
+            <h3 class="text-2xl font-bold mb-6 text-green-500">Module 1: Data Acquisition & Project Scope</h3>
+            <div class="bg-secondary-dark p-8 rounded-2xl shadow-xl space-y-6">
+                <p class="text-text-muted">**Project Proposal Summary: Unauthorized Weapon Detection**</p>
+                <div class="bg-primary-dark p-6 rounded-xl space-y-4">
+                    <h4 class="text-xl font-semibold">1. Objectives & Data Plan</h4>
+                    <ul class="list-disc list-inside text-text-light space-y-1 ml-4">
+                        <li>**Target Goal:** Achieve minimum 85% mAP@0.5 for real-time detection on low-power devices.</li>
+                        <li>**Current Dataset:** 700 labeled images (mixture of indoor/outdoor, varying light conditions).</li>
+                        <li>**Labeling:** All bounding boxes must adhere to COCO format standard.</li>
+                    </ul>
+                    <h4 class="text-xl font-semibold">2. Technology Stack (Model Training)</h4>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="bg-accent px-3 py-1 text-sm rounded-full">Python 3.10</span>
+                        <span class="bg-accent px-3 py-1 text-sm rounded-full">PyTorch / TensorFlow</span>
+                        <span class="bg-accent px-3 py-1 text-sm rounded-full">YOLOv8s (Initial Model)</span>
+                        <span class="bg-accent px-3 py-1 text-sm rounded-full">Label Studio (Annotation)</span>
+                    </div>
+                </div>
+                <button onclick="showContent('dashboard')" class="bg-gray-700 hover:bg-gray-600 transition py-2 px-4 rounded-xl text-sm font-semibold">← Back to Dashboard</button>
+            </div>
+        </section>
+
+        <!-- E. Module 2: Reading View (Specific Deep Learning Content) -->
+        <section id="reading-content" class="hidden">
+            <h3 class="text-2xl font-bold mb-6 text-yellow-500">Module 2: Detection Model Research</h3>
+            <div class="bg-secondary-dark p-8 rounded-2xl shadow-xl space-y-6">
+                <p class="text-text-muted">Deep dive into the architecture and efficiency of high-performing Object Detection models for final selection.</p>
+                
+                <div class="bg-primary-dark p-6 rounded-xl space-y-4">
+                    <h4 class="text-xl font-semibold">Current Reading List (Focusing on SOTA Detection)</h4>
+                    <ul class="list-decimal list-inside text-text-light space-y-2 ml-4">
+                        <li class="flex justify-between items-center">
+                            <span>Paper 1: YOLOv8: Architectures, Implementation, and Applications</span>
+                            <span class="text-green-500 text-sm">Read</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Paper 2: Survey of Transfer Learning Techniques in Object Detection</span>
+                            <span class="text-yellow-500 text-sm">Reading (Section 4: Fine-tuning)</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Paper 3: Advanced Non-Max Suppression (NMS) Techniques</span>
+                            <span class="text-text-muted text-sm">To Read</span>
+                        </li>
+                    </ul>
+                </div>
+                <button onclick="showContent('dashboard')" class="bg-gray-700 hover:bg-gray-600 transition py-2 px-4 rounded-xl text-sm font-semibold">← Back to Dashboard</button>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- JavaScript for Navigation Logic -->
+    <script>
+        // Maps section IDs to their header titles for dynamic updating
+        const titles = {
+            'dashboard': 'Learning Path Overview',
+            'team': 'Team Collaboration & Feedback',
+            'resources': 'External Resources & Tools',
+            'documentation': 'Module 1: Data Acquisition & Project Scope',
+            'reading': 'Module 2: Detection Model Research'
+        };
+
+        const contentSections = ['dashboard', 'team', 'resources', 'documentation', 'reading'];
+
+        // Core function to handle content switching and sidebar highlighting
+        function showContent(sectionId) {
+            // 1. Hide all content sections
+            contentSections.forEach(id => {
+                const el = document.getElementById(id + '-content');
+                if (el) el.classList.add('hidden');
+            });
+
+            // 2. Show the selected content section
+            const targetEl = document.getElementById(sectionId + '-content');
+            if (targetEl) targetEl.classList.remove('hidden');
+
+            // 3. Update active state in the primary sidebar navigation
+            const isPrimaryNavLink = ['dashboard', 'team', 'resources'].includes(sectionId);
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                // Reset non-active styles
+                link.classList.remove('bg-secondary-dark', 'text-white', 'font-semibold', 'shadow-lg');
+                link.classList.add('text-text-muted');
+            });
+
+            if (isPrimaryNavLink) {
+                // Apply active styles to the primary link clicked
+                const activeLink = document.getElementById('nav-' + sectionId);
+                if (activeLink) {
+                    activeLink.classList.add('bg-secondary-dark', 'text-white', 'font-semibold', 'shadow-lg');
+                    activeLink.classList.remove('text-text-muted');
+                }
+            } else {
+                // If a module button was clicked (documentation or reading), keep the DASHBOARD link active
+                const dashboardLink = document.getElementById('nav-dashboard');
+                if (dashboardLink) {
+                    dashboardLink.classList.add('bg-secondary-dark', 'text-white', 'font-semibold', 'shadow-lg');
+                    dashboardLink.classList.remove('text-text-muted');
+                }
+            }
+
+            
+            // 4. Update the main header title
+            const titleEl = document.getElementById('view-title');
+            if (titleEl && titles[sectionId]) {
+                titleEl.textContent = titles[sectionId];
+            }
+        }
+
+        // Initial load: Set dashboard as active and visible
+        window.onload = () => {
+            showContent('dashboard');
+        };
+    </script>
+</body>
+</html>
